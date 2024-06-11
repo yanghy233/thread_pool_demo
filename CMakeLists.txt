@@ -12,7 +12,7 @@ project(thread_pool_demo VERSION 0.0.1 LANGUAGES C CXX)
 
 # header file directory
 #include_directories(${PROJECT_SOURCE_DIR}/include)
-#include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_subdirectory(./test)
