@@ -34,7 +34,17 @@ class thread_pool {
 
       public:
         worker_thread(int thread_id, thread_pool *pool)
-            : thread_id_(thread_id), pool_(pool) {}
+            : thread_id_(thread_id), pool_(pool) {
+                // init: all bitmap set to zero
+                cpu_set_t cpuset;
+                CPU_ZERO(&cpuset);
+
+                // set location of bitmap, i = 1 设置要绑定的 CPU 核心编号
+                CPU_SET(thread_id, &cpuset);
+
+                // set thread affinity bind to cpu
+                pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
+            }
 
         void operator()() {
             // 等待队列中任务不为空，被唤醒后，取任务，做任务
